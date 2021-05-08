@@ -2,7 +2,7 @@
   <div id="app" class="h-screen flex">
     <Menu />
     <div class="flex-1 flex overflow-hidden">
-      <div class="flex-1 overflow-y-scroll p-4">
+      <div class="flex-1 overflow-y-auto p-4">
         <router-view />
       </div>
     </div>

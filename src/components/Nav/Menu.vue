@@ -1,5 +1,5 @@
 <template>
-  <div class="w-64 p-2">
+  <div class="w-64 p-2 bg-gray-100 overflow-y-auto no-scrollbar">
     <div
       class="flex-shrink-0 px-8 py-4 flex flex-row items-center justify-between"
     >
@@ -20,7 +20,7 @@
       <div class="relative" x-data="{ chatOpen: false }">
         <button
           v-on:click="toggleChat"
-          class="flex flex-row items-center w-full px-4 py-2 mt-2 text-sm font-semibold text-left bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:focus:bg-gray-600 dark-mode:hover:bg-gray-600 md:block hover:text-yellow-700 hover:bg-yellow-100 focus:outline-none focus:shadow-outline"
+          class="flex flex-row items-center w-full px-4 py-2 mt-2 text-sm font-semibold text-left bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:focus:bg-gray-600 dark-mode:hover:bg-gray-600 md:block hover:text-gray-700 hover:bg-gray-200 focus:outline-none focus:shadow-outline"
         >
           <span>Chat</span>
           <svg
@@ -47,10 +47,25 @@
           x-transition:leave-end="transform opacity-0 scale-95"
           class="absolute right-0 w-full mt-2 origin-top-right rounded-md"
         >
-          <div class="px-2 py-2 bg-white rounded-md dark-mode:bg-gray-800">
+          <div
+            class="px-2 py-2 bg-gray-100 rounded-md dark-mode:bg-gray-800 mb-4"
+          >
             <NavItem route="/link1">#general</NavItem>
             <NavItem route="/link2">#programming</NavItem>
             <NavItem route="/link3">#memes</NavItem>
+            <NavSectionHeader>Bad Stuff</NavSectionHeader>
+            <NavItem route="/link4">#nsfw</NavItem>
+            <NavItem route="/link4">#nsfw</NavItem>
+            <NavItem route="/link4">#nsfw</NavItem>
+            <NavItem route="/link4">#nsfw</NavItem>
+            <NavItem route="/link4">#nsfw</NavItem>
+            <NavItem route="/link4">#nsfw</NavItem>
+            <NavItem route="/link4">#nsfw</NavItem>
+            <NavItem route="/link4">#nsfw</NavItem>
+            <NavItem route="/link4">#nsfw</NavItem>
+            <NavItem route="/link4">#nsfw</NavItem>
+            <NavItem route="/link4">#nsfw</NavItem>
+            <NavItem route="/link4">#nsfw</NavItem>
             <NavItem route="/link4">#nsfw</NavItem>
           </div>
         </div>
@@ -61,9 +76,11 @@
 
 <script>
 import NavItem from "./NavItem";
+import NavSectionHeader from "./NavSectionHeader";
 export default {
   components: {
     NavItem,
+    NavSectionHeader,
   },
   data() {
     return {
@@ -77,3 +94,19 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+  width: 0px;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+</style>
