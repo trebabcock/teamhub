@@ -13,14 +13,19 @@
         <span class="text-gray-400 text-xs">Today, at 11:55 AM</span>
       </div>
       <p class="leading-normal">
-        This is not a real message, unfortunately. This is not a real message,
-        unfortunately. This is not a real message, unfortunately. This is not a
-        real message, unfortunately. This is not a real message, unfortunately.
-        This is not a real message, unfortunately. This is not a real message,
-        unfortunately. This is not a real message, unfortunately. This is not a
-        real message, unfortunately. This is not a real message, unfortunately.
-        This is not a real message, unfortunately.
+        {{ text }}
       </p>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  props: {
+    text: {
+      type: String,
+      required: true,
+    },
+  },
+};
+</script>

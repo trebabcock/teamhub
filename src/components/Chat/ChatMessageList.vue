@@ -1,21 +1,10 @@
 <template>
   <div class="px-6 py-4 flex-1 overflow-y-scroll no-scrollbar">
-    <ChatMessage />
-    <ChatMessage />
-    <ChatMessage />
-    <ChatMessage />
-    <ChatMessage />
-    <ChatMessage />
-    <ChatMessage />
-    <ChatMessage />
-    <ChatMessage />
-    <ChatMessage />
-    <ChatMessage />
-    <ChatMessage />
-    <ChatMessage />
-    <ChatMessage />
-    <ChatMessage />
-    <ChatMessage />
+    <ChatMessage
+      v-for="message in messages"
+      :key="message"
+      v-bind:text="message.text"
+    />
   </div>
 </template>
 
@@ -23,6 +12,12 @@
 import ChatMessage from "./ChatMessage";
 export default {
   name: "ChatMessageList",
+  props: {
+    messages: {
+      type: Array,
+      required: true,
+    },
+  },
   components: {
     ChatMessage,
   },

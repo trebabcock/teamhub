@@ -11,7 +11,7 @@
         </div>
       </div>
       <!-- Chat messages -->
-      <ChatMessageList />
+      <ChatMessageList v-bind:messages="messages" />
       <ChatInput />
     </div>
   </div>
@@ -21,9 +21,33 @@
 import ChatInput from "./ChatInput";
 import ChatMessageList from "./ChatMessageList";
 export default {
+  data() {
+    return {
+      messages: [
+        { text: "hello" },
+        { text: "hi" },
+        { text: "How's it going?" },
+        {
+          text:
+            "Pretty good, I guess. Just tried to kill myself but messed it up because I'm fucking retarded. How are you?",
+        },
+        { text: "Uhhhhh" },
+      ],
+    };
+  },
   components: {
     ChatInput,
     ChatMessageList,
+  },
+  computed: {
+    messageList: function () {
+      return this.messages;
+    },
+  },
+  methods: {
+    submitMessage(text) {
+      this.messages.push(text);
+    },
   },
 };
 </script>

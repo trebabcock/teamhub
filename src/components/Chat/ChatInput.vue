@@ -18,6 +18,7 @@
         type="text"
         class="w-full px-4 rounded-lg block bg-gray-100 border-0 outline-none focus:outline-none focus:ring-0"
         placeholder="Message #general"
+        v-on:submit="submit"
       />
     </div>
   </div>
@@ -26,5 +27,10 @@
 <script>
 export default {
   name: "ChatInput",
+  methods: {
+    submit() {
+      // stuff
+    },
+  },
 };
 </script>
