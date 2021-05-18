@@ -31,6 +31,9 @@ export default {
   methods: {
     submitMessage() {
       let text = document.getElementById("input_box").value;
+      if (!text) {
+        return;
+      }
       this.$store.dispatch("sendMessage", text);
       document.getElementById("input_box").value = "";
     },
