@@ -2,6 +2,8 @@
   "name": "fglhub",
   "version": "0.1.0",
   "private": true,
+  "author": "LM-003",
+  "description": "A place for FGL members to interact without the threat of Big Corporations listening in.",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",

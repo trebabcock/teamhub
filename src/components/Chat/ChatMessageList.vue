@@ -3,7 +3,8 @@
     <ChatMessage
       v-for="message in messages"
       :key="message"
-      v-bind:text="message.text"
+      v-bind:author="message.author"
+      v-bind:content="message.content"
     />
   </div>
 </template>
@@ -12,31 +13,13 @@
 import ChatMessage from "./ChatMessage";
 export default {
   name: "ChatMessageList",
-  props: {
-    messages: {
-      type: Array,
-      required: true,
-    },
-  },
   components: {
     ChatMessage,
   },
-  methods: {
-    scrollToEnd() {
-      var content = this.$refs.container;
-      content.scrollTop = content.scrollHeight;
+  computed: {
+    messages() {
+      return this.$store.getters.getMessages;
     },
-  },
-
-  updated() {
-    // This will be called when the component updates
-    // try toggling a todo
-    this.scrollToEnd();
-  },
-
-  mounted() {
-    // This will be called on load
-    this.scrollToEnd();
   },
 };
 </script>

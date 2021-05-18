@@ -5,7 +5,7 @@
     >
       <router-link
         to="/"
-        class="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline"
+        class="text-3xl font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline"
         >FGL Hub</router-link
       >
     </div>
@@ -50,9 +50,15 @@
           <div
             class="px-2 py-2 bg-gray-100 rounded-md dark-mode:bg-gray-800 mb-4"
           >
-            <NavItem route="/link1">#general</NavItem>
+            <NavItem route="/chat">#general</NavItem>
             <NavItem route="/link2">#programming</NavItem>
             <NavItem route="/link3">#memes</NavItem>
+            <NavItem route="/link4">#nsfw</NavItem>
+            <!--<NavItem route="/link4">#nsfw</NavItem>
+            <NavItem route="/link4">#nsfw</NavItem>
+            <NavItem route="/link4">#nsfw</NavItem>
+            <NavItem route="/link4">#nsfw</NavItem>
+            <NavItem route="/link4">#nsfw</NavItem>
             <NavSectionHeader>Bad Stuff</NavSectionHeader>
             <NavItem route="/link4">#nsfw</NavItem>
             <NavItem route="/link4">#nsfw</NavItem>
@@ -60,13 +66,7 @@
             <NavItem route="/link4">#nsfw</NavItem>
             <NavItem route="/link4">#nsfw</NavItem>
             <NavItem route="/link4">#nsfw</NavItem>
-            <NavItem route="/link4">#nsfw</NavItem>
-            <NavItem route="/link4">#nsfw</NavItem>
-            <NavItem route="/link4">#nsfw</NavItem>
-            <NavItem route="/link4">#nsfw</NavItem>
-            <NavItem route="/link4">#nsfw</NavItem>
-            <NavItem route="/link4">#nsfw</NavItem>
-            <NavItem route="/link4">#nsfw</NavItem>
+            <NavItem route="/link4">#nsfw</NavItem>-->
           </div>
         </div>
       </div>
@@ -76,11 +76,11 @@
 
 <script>
 import NavItem from "./NavItem";
-import NavSectionHeader from "./NavSectionHeader";
+//import NavSectionHeader from "./NavSectionHeader";
 export default {
   components: {
     NavItem,
-    NavSectionHeader,
+    //NavSectionHeader,
   },
   data() {
     return {

@@ -1,9 +1,9 @@
 <template>
   <div class="pb-6 mt-2 mb-2 px-4 flex-none">
     <div
-      class="flex rounded-lg bg-gray-100 overflow-hidden border-0 outline-none focus:outline-none focus:ring-0"
+      class="flex rounded-lg bg-gray-200 overflow-hidden border-0 outline-none focus:outline-none focus:ring-0"
     >
-      <span class="text-3xl text-grey border-r-2 border-grey p-2">
+      <span class="text-3xl text-grey p-2">
         <svg
           class="fill-current h-6 w-6 block"
           xmlns="http://www.w3.org/2000/svg"
@@ -15,10 +15,11 @@
         </svg>
       </span>
       <input
+        id="input_box"
         type="text"
-        class="w-full px-4 rounded-lg block bg-gray-100 border-0 outline-none focus:outline-none focus:ring-0"
+        class="w-full px-4 rounded-lg block bg-gray-200 border-0 outline-none focus:outline-none focus:ring-0"
         placeholder="Message #general"
-        v-on:submit="submit"
+        v-on:keyup.enter="submitMessage"
       />
     </div>
   </div>
@@ -28,8 +29,10 @@
 export default {
   name: "ChatInput",
   methods: {
-    submit() {
-      // stuff
+    submitMessage() {
+      let text = document.getElementById("input_box").value;
+      this.$store.dispatch("sendMessage", text);
+      document.getElementById("input_box").value = "";
     },
   },
 };
