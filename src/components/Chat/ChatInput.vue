@@ -26,15 +26,32 @@
 </template>
 
 <script>
+import { v4 as uuidv4 } from "uuid";
+const moment = require("moment");
+
 export default {
   name: "ChatInput",
+  props: {
+    channel: {
+      type: String,
+      required: true,
+    },
+  },
   methods: {
     submitMessage() {
       let text = document.getElementById("input_box").value;
       if (!text) {
         return;
       }
-      this.$store.dispatch("sendMessage", text);
+      var message = {
+        author: "Tre (LM-003)",
+        time: moment.utc(),
+        uuid: uuidv4(),
+        destination: this.channel,
+        type: "message",
+        content: text,
+      };
+      this.$store.dispatch("sendMessage", message);
       document.getElementById("input_box").value = "";
     },
   },

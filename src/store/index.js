@@ -1,19 +1,20 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
+const axios = require("axios");
+
 Vue.use(Vuex);
 
 let socket = new WebSocket("ws://192.168.40.13:2814/api/v1/chat");
 console.log("Attempting Connection...");
 
 socket.onopen = () => {
-  //console.log("Successfully Connected");
-  socket.send("Hi From the Client!");
+  //socket.send("Hi From the Client!");
 };
 
 socket.onclose = (event) => {
   console.log("Socket Closed Connection: ", event);
-  socket.send("Client Closed!");
+  socket = new WebSocket("ws://192.168.40.13:2814/api/v1/chat");
 };
 
 socket.onerror = (error) => {
@@ -21,26 +22,12 @@ socket.onerror = (error) => {
 };
 
 socket.onmessage = (message) => {
-  console.log(message.data);
   store.commit("addMessage", JSON.parse(message.data));
 };
 
 const store = new Vuex.Store({
   state: {
-    messages: [
-      {
-        author: "Tre (LM-003)",
-        destination: "General",
-        type: "message",
-        content: "test message",
-      },
-      {
-        author: "Tre (LM-003)",
-        destination: "General",
-        type: "message",
-        content: "another test message",
-      },
-    ],
+    messages: [],
   },
   getters: {
     getMessages: (state) => state.messages,
@@ -49,16 +36,24 @@ const store = new Vuex.Store({
     addMessage(state, message) {
       state.messages.push(message);
     },
+    setMessages(state, payload) {
+      state.messages = payload;
+    },
   },
   actions: {
     sendMessage(context, payload) {
-      var message = {
-        author: "Tre (LM-003)",
-        destination: "General",
-        type: "message",
-        content: payload,
-      };
-      socket.send(JSON.stringify(message));
+      try {
+        socket.send(JSON.stringify(payload));
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    fetchMessages({ commit }) {
+      axios
+        .get("http://192.168.40.13:2814/api/v1/chat/messages")
+        .then((response) => {
+          commit("setMessages", response.data);
+        });
     },
   },
   modules: {},

@@ -2,7 +2,7 @@
   <div id="app" class="h-screen flex">
     <Menu />
     <div class="flex-1 flex overflow-hidden">
-      <div class="flex-1 overflow-y-auto p-4">
+      <div class="flex-1 p-4 overflow-y-auto">
         <router-view />
       </div>
     </div>
@@ -22,5 +22,8 @@
 import Menu from "./components/Nav/Menu";
 export default {
   components: { Menu },
+  mounted() {
+    this.$store.dispatch("fetchMessages");
+  },
 };
 </script>

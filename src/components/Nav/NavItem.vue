@@ -15,11 +15,10 @@ export default {
       type: String,
       required: true,
     },
-    isActive: Boolean,
   },
-  watch: {
-    $route() {
-      this.isActive = this.$route.path === this.route;
+  computed: {
+    isActive() {
+      return this.$route.path === this.route;
     },
   },
 };

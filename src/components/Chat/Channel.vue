@@ -1,4 +1,4 @@
-<template>
+<template class="overflow-y-hidden">
   <div class="font-sans antialiased h-screen flex overflow-y-hidden">
     <div class="flex-1 flex flex-col bg-white overflow-hidden">
       <!-- Top bar -->
@@ -10,7 +10,7 @@
       </div>
       <!-- Chat messages -->
       <ChatMessageList />
-      <ChatInput />
+      <ChatInput v-bind:channel="channel" />
     </div>
   </div>
 </template>
@@ -19,6 +19,11 @@
 import ChatInput from "./ChatInput";
 import ChatMessageList from "./ChatMessageList";
 export default {
+  data() {
+    return {
+      channel: "General",
+    };
+  },
   components: {
     ChatInput,
     ChatMessageList,

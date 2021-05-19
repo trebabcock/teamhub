@@ -1,5 +1,5 @@
-<template>
-  <div class="hello">
+<template class="overflow-y-auto">
+  <div class="hello overflow-y-auto">
     <h1>{{ msg }}</h1>
     <p>
       For a guide and recipes on how to configure / customize this project,<br />
