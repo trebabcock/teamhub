@@ -1,15 +1,12 @@
 <template class="overflow-y-hidden">
   <div class="font-sans antialiased h-screen flex overflow-y-hidden">
-    <div class="flex-1 flex flex-col bg-white overflow-hidden">
+    <div
+      class="flex-1 flex flex-col bg-gray-600 dark:bg-channel-bg-dark dark:text-channel-text-dark overflow-hidden"
+    >
       <!-- Top bar -->
-      <div class="border-b flex px-6 py-2 items-center flex-none">
-        <div class="flex flex-col">
-          <h3 class="text-grey-darkest mb-1 font-extrabold">#general</h3>
-          <div class="text-grey-dark text-sm truncate">General Chat</div>
-        </div>
-      </div>
+      <ChatTopBar v-bind:channel="channel" v-bind:description="description" />
       <!-- Chat messages -->
-      <ChatMessageList />
+      <ChatMessageList v-bind:channel="channel" />
       <ChatInput v-bind:channel="channel" />
     </div>
   </div>
@@ -18,15 +15,22 @@
 <script>
 import ChatInput from "./ChatInput";
 import ChatMessageList from "./ChatMessageList";
+import ChatTopBar from "./ChatTopBar";
 export default {
   data() {
     return {
-      channel: "General",
+      description: String(this.channel() + " discussion."),
     };
   },
   components: {
     ChatInput,
     ChatMessageList,
+    ChatTopBar,
+  },
+  computed: {
+    channel() {
+      return this.$route.params.channel;
+    },
   },
 };
 </script>

@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .banner-text {
+    color: #080809;
+  }
+
+  .user-color {
+    color: #3498db;
+  }
+}
+/*
+
+menu bg
+menu item selected bg
+menu item text
+menu item selected text
+
+chat bg
+chat input bg
+chat input border
+chat input placeholder
+chat input text
+message text
+date text
+
+*/

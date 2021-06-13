@@ -1,11 +1,15 @@
 <template>
-  <div id="messageList" class="px-6 py-4 flex-1 overflow-y-scroll no-scrollbar">
+  <div
+    id="messageList"
+    class="bg-transparent px-6 py-4 flex-1 overflow-y-scroll no-scrollbar"
+  >
     <ChatMessage
       v-for="message in messages"
       :key="message.id"
       v-bind:author="message.author"
       v-bind:content="message.content"
       v-bind:time="formatTime(message.time)"
+      v-bind:messageType="message.type"
     />
   </div>
 </template>
@@ -54,6 +58,12 @@ function handleScroll() {
 
 export default {
   name: "ChatMessageList",
+  props: {
+    channel: {
+      type: String,
+      required: true,
+    },
+  },
   components: {
     ChatMessage,
   },
@@ -64,7 +74,7 @@ export default {
   },
   computed: {
     messages() {
-      return this.$store.getters.getMessages;
+      return this.$store.getters.getMessages(this.channel);
     },
   },
   watch: {
@@ -74,6 +84,9 @@ export default {
     },
   },
   mounted: function () {
+    handleScroll();
+  },
+  beforeMount() {
     handleScroll();
   },
 };

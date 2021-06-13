@@ -11,12 +11,22 @@ const routes = [
     component: Home,
   },
   {
-    path: "/chat",
+    path: "/chat/:channel",
     name: "Chat",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import("../components/Chat/Channel.vue"),
+  },
+  {
+    path: "/register",
+    name: "Register",
+    component: () => import("../components/Auth/Register.vue"),
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: () => import("../components/Auth/Login.vue"),
   },
 ];
 

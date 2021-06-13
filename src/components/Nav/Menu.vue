@@ -1,33 +1,36 @@
 <template>
-  <div class="w-64 p-2 bg-gray-100 overflow-y-auto no-scrollbar">
+  <div
+    class="w-64 p-2 flex flex-col max-h-screen bg-gray-700 dark:bg-menu-bg-dark no-scrollbar antialiased"
+  >
     <div
-      class="flex-shrink-0 px-8 py-4 flex flex-row items-center justify-between"
+      class="flex-shrink-0 px-8 text-green-300 py-4 flex flex-row items-center justify-between"
     >
       <router-link
         to="/"
-        class="text-3xl font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline"
-        >FGL Hub</router-link
+        class="text-3xl text-green-300 font-bold tracking-widest uppercase rounded-lg"
       >
+        FGL Hub
+      </router-link>
     </div>
     <nav
       v-bind:class="{ block: chatOpen, hidden: !chatOpen }"
-      class="md:block px-4 pb-4"
+      class="md:block px-4 pb-4 flex flex-1"
     >
       <NavItem route="/">Home</NavItem>
-      <NavItem route="/portfolio">Feed</NavItem>
+      <NavItem route="/register">Feed</NavItem>
       <NavItem route="/about">Spaces</NavItem>
       <NavItem route="/contact">Git</NavItem>
-      <div class="relative" x-data="{ chatOpen: false }">
+      <div class="relative flex-grow" x-data="{ chatOpen: false }">
         <button
           v-on:click="toggleChat"
-          class="flex flex-row items-center w-full px-4 py-2 mt-2 text-sm font-semibold text-left bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:focus:bg-gray-600 dark-mode:hover:bg-gray-600 md:block hover:text-gray-700 hover:bg-gray-200 focus:outline-none focus:shadow-outline"
+          class="text-green-300 menu-item-default-light flex flex-row items-center w-full px-4 py-2 mt-2 text-sm font-semibold text-left bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:focus:bg-gray-600 dark-mode:hover:bg-gray-600 md:block hover:menu-item-light focus:outline-none focus:shadow-outline"
         >
           <span>Chat</span>
           <svg
             fill="currentColor"
             viewBox="0 0 20 20"
             :class="{ 'rotate-180': chatOpen, 'rotate-0': !chatOpen }"
-            class="inline w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform md:-mt-1"
+            class="inline w-4 h-4 mt-1 ml-1 transition-transform duration-100 transform md:-mt-1"
           >
             <path
               fill-rule="evenodd"
@@ -36,39 +39,7 @@
             ></path>
           </svg>
         </button>
-        <div
-          v-if="chatOpen"
-          v-bind:x-show="chatOpen"
-          x-transition:enter="transition ease-out duration-100"
-          x-transition:enter-start="transform opacity-0 scale-95"
-          x-transition:enter-end="transform opacity-100 scale-100"
-          x-transition:leave="transition ease-in duration-75"
-          x-transition:leave-start="transform opacity-100 scale-100"
-          x-transition:leave-end="transform opacity-0 scale-95"
-          class="absolute right-0 w-full mt-2 origin-top-right rounded-md"
-        >
-          <div
-            class="px-2 py-2 bg-gray-100 rounded-md dark-mode:bg-gray-800 mb-4"
-          >
-            <NavItem route="/chat">#general</NavItem>
-            <NavItem route="/link2">#programming</NavItem>
-            <NavItem route="/link3">#memes</NavItem>
-            <NavItem route="/link4">#nsfw</NavItem>
-            <!--<NavItem route="/link4">#nsfw</NavItem>
-            <NavItem route="/link4">#nsfw</NavItem>
-            <NavItem route="/link4">#nsfw</NavItem>
-            <NavItem route="/link4">#nsfw</NavItem>
-            <NavItem route="/link4">#nsfw</NavItem>
-            <NavSectionHeader>Bad Stuff</NavSectionHeader>
-            <NavItem route="/link4">#nsfw</NavItem>
-            <NavItem route="/link4">#nsfw</NavItem>
-            <NavItem route="/link4">#nsfw</NavItem>
-            <NavItem route="/link4">#nsfw</NavItem>
-            <NavItem route="/link4">#nsfw</NavItem>
-            <NavItem route="/link4">#nsfw</NavItem>
-            <NavItem route="/link4">#nsfw</NavItem>-->
-          </div>
-        </div>
+        <ChannelList v-bind:chatOpen="chatOpen" v-if="chatOpen" />
       </div>
     </nav>
   </div>
@@ -76,11 +47,11 @@
 
 <script>
 import NavItem from "./NavItem";
-//import NavSectionHeader from "./NavSectionHeader";
+import ChannelList from "./ChannelList";
 export default {
   components: {
     NavItem,
-    //NavSectionHeader,
+    ChannelList,
   },
   data() {
     return {

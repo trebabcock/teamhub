@@ -2,7 +2,7 @@
   <div id="app" class="h-screen flex">
     <Menu />
     <div class="flex-1 flex overflow-hidden">
-      <div class="flex-1 p-4 overflow-y-auto">
+      <div class="antialiased flex-1 overflow-y-auto">
         <router-view />
       </div>
     </div>
@@ -22,8 +22,20 @@
 import Menu from "./components/Nav/Menu";
 export default {
   components: { Menu },
+  data() {
+    return {
+      showMenu: {
+        type: Boolean,
+        required: true,
+      },
+    };
+  },
   mounted() {
     this.$store.dispatch("fetchMessages");
+  },
+  beforeMount() {
+    this.showMenu = this.$store.getters.getLoggedIn;
+    this.$store.dispatch("initTheme");
   },
 };
 </script>
