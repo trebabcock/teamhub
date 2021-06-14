@@ -3,12 +3,9 @@ import Vuex from "vuex";
 
 const axios = require("axios");
 
-//axios.defaults.baseURL = "http://192.168.40.13:2814";
-//axios.defaults.headers.common["Authorization"] = "Bearer ";
-
 Vue.use(Vuex);
 
-let socket = new WebSocket("ws://192.168.1.71:2814/api/v1/chat");
+let socket = new WebSocket("ws://localhost:2814/api/v1/chat");
 console.log("Attempting Connection...");
 
 socket.onopen = () => {
@@ -17,7 +14,7 @@ socket.onopen = () => {
 
 socket.onclose = (event) => {
   console.log("Socket Closed Connection: ", event);
-  socket = new WebSocket("ws://192.168.1.71:2814/api/v1/chat");
+  socket = new WebSocket("ws://localhost:2814/api/v1/chat");
 };
 
 socket.onerror = (error) => {

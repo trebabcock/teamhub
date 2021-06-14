@@ -2,10 +2,6 @@
   <div
     class="py-3 flex text-green-50 rounded-md px-2 hover:bg-gray-700 hover:shadow-md bg-transparent dark:border-gray-800 items-start mb-1 text-sm"
   >
-    <!--<img
-      src="https://github.com/identicons/jasonlong.png"
-      class="cursor-pointer w-10 h-10 rounded-3xl mr-3"
-    />-->
     <img
       src="https://avatars.githubusercontent.com/u/8203966?s=400&u=b1ea724ca0c592b96893591b6573728ad5d4d485&v=4.png"
       class="cursor-pointer w-10 h-10 mr-3 rounded-3xl"
@@ -23,7 +19,7 @@
       </p>
       <img
         v-if="isImage"
-        class="h-96 object-scale-down cursor-pointer"
+        class="h-72 object-scale-down cursor-pointer"
         :src="content"
         @click="openImage"
       />

@@ -12,9 +12,7 @@
     <div class="px-2 py-2 bg-transparent rounded-md dark:bg-gray-800 mb-4">
       <NavItem route="/chat/General">General</NavItem>
       <NavItem route="/chat/Programming">Programming</NavItem>
-      <User route="/yeeyee" user="Tre (LM-003)" status="online" />
-      <User route="/yeeyee" user="Adam (LM-001)" status="dnd" />
-      <User route="/yeeyee" user="Terminal (LM-004)" status="away" />
+      <User route="/user" user="Tre" status="online" />
     </div>
   </div>
 </template>

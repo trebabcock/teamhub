@@ -9,7 +9,7 @@
         to="/"
         class="text-3xl text-green-300 font-bold tracking-widest uppercase rounded-lg"
       >
-        FGL Hub
+        Teamhub
       </router-link>
     </div>
     <nav

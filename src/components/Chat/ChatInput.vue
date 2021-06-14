@@ -84,13 +84,10 @@ export default {
       return false;
     },
     isEmbed() {
-      var words = this.inputText.split(" ");
-      words.forEach((word) => {
-        if (word.startsWith("http://") || word.startsWith("https://")) {
-          return true;
-        }
-      });
-      return false;
+      return (
+        this.inputText.startsWith("http://") ||
+        this.inputText.startsWith("https://")
+      );
     },
     embedUrls() {
       var words = this.inputText.split(" ");
