@@ -2,7 +2,7 @@
 
 Teamhub is (or will be) a place for teams to collaborate and share ideas. This is absolutely still a work in progress. There's still a ways to go before I have an MVP.
 
-Fair warning, the code is kind of a mess right now. I have some things hardcoded that shouldn't be, but that's a because some necessary features aren't implemented yet. This is not meant to be built and tested, unless you're wanting to contribute.
+Fair warning, the code is kind of a mess right now. I have some things hardcoded that shouldn't be, but that's because some necessary features aren't implemented yet. This is not meant to be built and tested, unless you're wanting to contribute.
 
 # Features
 
