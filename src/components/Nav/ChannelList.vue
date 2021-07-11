@@ -10,16 +10,20 @@
     class="absolute right-0 w-full mt-2 origin-top-right rounded-md bg-transparent"
   >
     <div class="px-2 py-2 bg-transparent rounded-md dark:bg-gray-800 mb-4">
-      <NavItem route="/chat/General">General</NavItem>
-      <NavItem route="/chat/Programming">Programming</NavItem>
-      <User route="/user" user="Tre" status="online" />
+      <NavItem route="/newchannel">New Channel</NavItem>
+      <ChannelItem
+        v-for="channel in channels"
+        :key="channel.id"
+        v-bind:name="channel.name"
+        >{{ channel.name }}</ChannelItem
+      >
     </div>
   </div>
 </template>
 
 <script>
-import NavItem from "./NavItem";
-import User from "./User";
+import ChannelItem from "./ChannelItem";
+import NavItem from "./NavItem.vue";
 export default {
   props: {
     chatOpen: {
@@ -28,8 +32,21 @@ export default {
     },
   },
   components: {
+    ChannelItem,
     NavItem,
-    User,
+  },
+  beforeMount() {
+    this.$store.dispatch("fetchChannels");
+  },
+  computed: {
+    channels() {
+      return this.$store.getters.getChannels;
+    },
+  },
+  watch: {
+    channels: () => {
+      this.$forceUpdate;
+    },
   },
 };
 </script>

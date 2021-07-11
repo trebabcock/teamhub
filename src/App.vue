@@ -1,10 +1,15 @@
 <template>
-  <div id="app" class="h-screen flex">
-    <Menu />
-    <div class="flex-1 flex overflow-hidden">
-      <div class="antialiased flex-1 overflow-y-auto">
-        <router-view />
+  <div id="app">
+    <div v-if="loggedIn" class="h-screen flex">
+      <Menu />
+      <div class="flex-1 flex overflow-hidden">
+        <div class="antialiased flex-1 overflow-y-auto">
+          <router-view />
+        </div>
       </div>
+    </div>
+    <div v-else>
+      <router-view />
     </div>
   </div>
 </template>
@@ -22,20 +27,21 @@
 import Menu from "./components/Nav/Menu";
 export default {
   components: { Menu },
-  data() {
-    return {
-      showMenu: {
-        type: Boolean,
-        required: true,
-      },
-    };
-  },
   mounted() {
     this.$store.dispatch("fetchMessages");
+    if (!this.loggedIn) {
+      this.$router.push("/");
+    }
   },
   beforeMount() {
     this.showMenu = this.$store.getters.getLoggedIn;
-    this.$store.dispatch("initTheme");
+    this.loggedIn = this.$store.getters.getLoggedIn;
   },
+  computed: {
+    loggedIn() {
+      return this.$store.getters.getLoggedIn;
+    },
+  },
+  watch: {},
 };
 </script>

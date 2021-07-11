@@ -1,14 +1,18 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
+    name: "Login",
+    component: () => import("../components/Auth/Login.vue"),
+  },
+  {
+    path: "/home",
     name: "Home",
-    component: Home,
+    component: () => import("../views/Home.vue"),
   },
   {
     path: "/chat/:channel",
@@ -21,9 +25,14 @@ const routes = [
     component: () => import("../components/Auth/Register.vue"),
   },
   {
-    path: "/login",
-    name: "Login",
-    component: () => import("../components/Auth/Login.vue"),
+    path: "/feed",
+    name: "Feed",
+    component: () => import("../components/Feed/Feed.vue"),
+  },
+  {
+    path: "/newchannel",
+    name: "New Channel",
+    component: () => import("../components/Chat/NewChannel.vue"),
   },
 ];
 

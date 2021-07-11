@@ -4,64 +4,59 @@
       <h2
         class="text-green-300 text-3xl text-center font-medium title-font mb-5"
       >
-        Sign In
+        Create Channel
       </h2>
-      <form id="login" @submit="handleLogin">
+      <form id="channel" @submit="createChannel">
         <input
           type="text"
-          v-model="username"
-          id="username"
-          name="username"
-          placeholder="Username"
+          v-model="name"
+          id="name"
+          name="name"
+          placeholder="Channel Name"
           class="mt-2 w-full bg-gray-500 rounded-lg focus:ring-2 focus:ring-gray-400 text-base outline-none text-gray-200 py-1 px-3"
         />
-        <input
-          type="password"
-          v-model="password"
-          id="password"
-          name="password"
-          placeholder="Password"
+        <textarea
+          v-model="description"
+          id="description"
+          name="description"
+          placeholder="Channel Description"
           class="mt-2 w-full bg-gray-500 rounded-lg focus:ring-2 focus:ring-gray-400 text-base outline-none text-gray-200 py-1 px-3"
         />
         <input
           type="submit"
           id="submit"
           name="submit"
-          value="Sign In"
+          value="Create"
           class="cursor-pointer mt-2 w-full rounded-lg text-base outline-none text-green-300 bg-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
         />
       </form>
-      <p class="text-center text-xs text-purple-200 mt-3">
-        Not registered? Sign up
-        <router-link to="/register" class="text-green-300">here.</router-link>
-      </p>
     </div>
   </div>
 </template>
 
 <script>
+import { v4 as uuidv4 } from "uuid";
 export default {
   data() {
     return {
-      username: "",
-      password: "",
+      name: "",
+      description: "",
     };
   },
   methods: {
-    handleLogin: function (e) {
-      var creds = {
-        username: this.username,
-        password: this.password,
+    createChannel: function (e) {
+      var channel = {
+        name: this.name,
+        description: this.description,
+        id: uuidv4(),
       };
 
-      this.$store.dispatch("handleLogin", creds);
+      this.$store.dispatch("createChannel", channel);
+      this.$store.dispatch("fetchChannels");
       e.preventDefault();
+      //this.$router.go();
+      this.$router.push("/chat/" + this.name);
     },
-  },
-  mounted() {
-    if (this.$store.getters.getLoggedIn) {
-      this.$router.push("/home");
-    }
   },
 };
 </script>

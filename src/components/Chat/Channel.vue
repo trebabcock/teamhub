@@ -4,10 +4,14 @@
       class="flex-1 flex flex-col bg-gray-600 dark:bg-channel-bg-dark dark:text-channel-text-dark overflow-hidden"
     >
       <!-- Top bar -->
-      <ChatTopBar v-bind:channel="channel" v-bind:description="description" />
+      <ChatTopBar
+        v-bind:name="channel.name"
+        v-bind:description="channel.description"
+        v-bind:id="channel.id"
+      />
       <!-- Chat messages -->
-      <ChatMessageList v-bind:channel="channel" />
-      <ChatInput v-bind:channel="channel" />
+      <ChatMessageList v-bind:channel="channel.name" />
+      <ChatInput v-bind:channel="channel.name" />
     </div>
   </div>
 </template>
@@ -17,11 +21,11 @@ import ChatInput from "./ChatInput";
 import ChatMessageList from "./ChatMessageList";
 import ChatTopBar from "./ChatTopBar";
 export default {
-  data() {
+  /*data() {
     return {
-      description: String(this.channel() + " discussion."),
+      channel: this.$store.getters.getChannel(this.$route.params.channel),
     };
-  },
+  },*/
   components: {
     ChatInput,
     ChatMessageList,
@@ -29,7 +33,7 @@ export default {
   },
   computed: {
     channel() {
-      return this.$route.params.channel;
+      return this.$store.getters.getChannel(this.$route.params.channel)[0];
     },
   },
 };

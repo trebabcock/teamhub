@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-64 p-2 flex flex-col max-h-screen bg-gray-700 dark:bg-menu-bg-dark no-scrollbar antialiased"
+    class="w-64 p-2 flex flex-col max-h-screen bg-gray-700 dark:bg-menu-bg-dark no-scrollbar overflow-y-auto antialiased"
   >
     <div
       class="flex-shrink-0 px-8 text-green-300 py-4 flex flex-row items-center justify-between"
@@ -9,15 +9,15 @@
         to="/"
         class="text-3xl text-green-300 font-bold tracking-widest uppercase rounded-lg"
       >
-        Teamhub
+        FGL Hub
       </router-link>
     </div>
     <nav
       v-bind:class="{ block: chatOpen, hidden: !chatOpen }"
       class="md:block px-4 pb-4 flex flex-1"
     >
-      <NavItem route="/">Home</NavItem>
-      <NavItem route="/register">Feed</NavItem>
+      <NavItem route="/home">Home</NavItem>
+      <NavItem route="/feed">Feed</NavItem>
       <NavItem route="/about">Spaces</NavItem>
       <NavItem route="/contact">Git</NavItem>
       <div class="relative flex-grow" x-data="{ chatOpen: false }">

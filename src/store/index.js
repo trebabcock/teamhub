@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 const axios = require("axios");
+axios.defaults.baseURL = "http://localhost:2814/api/v1";
 
 Vue.use(Vuex);
 
@@ -27,7 +28,7 @@ socket.onmessage = (message) => {
 
 const store = new Vuex.Store({
   state: {
-    loggedIn: Boolean,
+    loggedIn: false,
     user: {},
     accessToken: "",
     refreshToken: "",
@@ -43,10 +44,20 @@ const store = new Vuex.Store({
         (message) => message.destination === destination
       );
     },
+    getChannel: (state) => (name) => {
+      return state.channels.filter((channel) => channel.name === name);
+    },
     getTheme: (state) => state.theme,
     getUser: (state) => state.user,
     getAccessToken: (state) => state.accessToken,
     getRefreshToken: (state) => state.refreshToken,
+    getLoggedIn: (state) => state.loggedIn,
+    getPosts: (state) => {
+      return state.posts.reverse();
+    },
+    getChannels: (state) => {
+      return state.channels;
+    },
   },
   mutations: {
     addMessage(state, message) {
@@ -62,11 +73,20 @@ const store = new Vuex.Store({
     setUser(state, user) {
       state.user = user;
     },
+    setLoggedIn(state, value) {
+      state.loggedIn = value;
+    },
     setAccessToken(state, token) {
       state.accessToken = token;
     },
     setRefreshToken(state, token) {
       state.refreshToken = token;
+    },
+    setPosts(state, posts) {
+      state.posts = posts;
+    },
+    setChannels(state, channels) {
+      state.channels = channels;
     },
   },
   actions: {
@@ -78,11 +98,19 @@ const store = new Vuex.Store({
       }
     },
     fetchMessages({ commit }) {
-      axios
-        .get("http://localhost:2814/api/v1/chat/messages")
-        .then((response) => {
-          commit("setMessages", response.data);
-        });
+      axios.get("/chat/messages").then((response) => {
+        commit("setMessages", response.data);
+      });
+    },
+    fetchPosts({ commit }) {
+      axios.get("/posts").then((response) => {
+        commit("setPosts", response.data);
+      });
+    },
+    fetchChannels({ commit }) {
+      axios.get("/chat/channels").then((response) => {
+        commit("setChannels", response.data);
+      });
     },
     initTheme({ commit }) {
       const cachedTheme = localStorage.theme ? localStorage.theme : false;
@@ -94,36 +122,47 @@ const store = new Vuex.Store({
       else if (userPrefersDark) commit("SET_THEME", "dark");
       else commit("SET_THEME", "light");
     },
+    initStore({ commit }) {
+      if (localStorage.getItem("user")) {
+        commit("setUser", localStorage.getItem("user"));
+      }
+      if (localStorage.getItem("loggedIn")) {
+        commit("setLoggedIn", true);
+      }
+    },
     handleLogin({ commit }, credentials) {
-      axios
-        .post("http://localhost:2814/api/auth/login", credentials)
-        .then((response) => {
-          if (response.status === 200) {
-            commit("setUser", response.data);
-          }
-          return response.status;
-        });
+      axios.post("/auth/login", credentials).then((response) => {
+        if (response.status === 200) {
+          commit("setUser", response.data);
+          commit("setLoggedIn", true);
+          localStorage.setItem("user", response.data);
+          localStorage.setItem("loggedIn", true);
+          this.$router.push("/home");
+        }
+      });
     },
     handleRegister(context, credentials) {
-      axios
-        .post("http://localhost:2814/api/auth/register", credentials)
-        .then((response) => {
-          return response.status;
-        });
+      axios.post("/auth/register", credentials).then((response) => {
+        console.log(response);
+      });
+    },
+    sendPost(context, post) {
+      axios.post("/posts/create", post).then((response) => {
+        console.log(response);
+      });
+    },
+    createChannel(context, channel) {
+      axios.post("/chat/channels/new", channel).then((response) => {
+        console.log(response);
+      });
+    },
+    deleteChannel(context, channel) {
+      axios.delete("/chat/channels/" + channel.id).then((response) => {
+        console.log(response);
+      });
     },
   },
   modules: {},
-  toggleTheme({ commit }) {
-    switch (localStorage.theme) {
-      case "light":
-        commit("SET_THEME", "dark");
-        break;
-
-      default:
-        commit("SET_THEME", "light");
-        break;
-    }
-  },
 });
 
 export default store;

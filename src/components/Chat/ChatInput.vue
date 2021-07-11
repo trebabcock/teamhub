@@ -59,8 +59,11 @@ export default {
       } else {
         messageType = "message";
       }
+
+      let mauthor = this.$store.getters.getUser;
+
       var message = {
-        author: "Tre",
+        author: mauthor.name,
         time: moment.utc(),
         uuid: uuidv4(),
         destination: this.channel,
