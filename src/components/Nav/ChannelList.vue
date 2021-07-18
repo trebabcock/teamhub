@@ -15,6 +15,7 @@
         v-for="channel in channels"
         :key="channel.id"
         v-bind:name="channel.name"
+        v-bind:id="channel.id"
         >{{ channel.name }}</ChannelItem
       >
     </div>
@@ -41,11 +42,6 @@ export default {
   computed: {
     channels() {
       return this.$store.getters.getChannels;
-    },
-  },
-  watch: {
-    channels: () => {
-      this.$forceUpdate;
     },
   },
 };

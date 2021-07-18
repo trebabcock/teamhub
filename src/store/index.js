@@ -6,16 +6,17 @@ axios.defaults.baseURL = "http://localhost:2814/api/v1";
 
 Vue.use(Vuex);
 
-let socket = new WebSocket("ws://localhost:2814/api/v1/chat");
+//let user = this.$store.getters.getUser;
+let socket = new WebSocket("ws://localhost:2814/api/v1/chat?id=" + "asdf");
 console.log("Attempting Connection...");
 
 socket.onopen = () => {
-  //socket.send("Hi From the Client!");
+  //socket.send(store.getters.getUser.id);
 };
 
 socket.onclose = (event) => {
   console.log("Socket Closed Connection: ", event);
-  socket = new WebSocket("ws://localhost:2814/api/v1/chat");
+  socket = new WebSocket("ws://localhost:2814/api/v1/chat?id=" + "asdf");
 };
 
 socket.onerror = (error) => {
@@ -41,11 +42,11 @@ const store = new Vuex.Store({
   getters: {
     getMessages: (state) => (destination) => {
       return state.messages.filter(
-        (message) => message.destination === destination
+        (message) => message.destination_id === destination
       );
     },
-    getChannel: (state) => (name) => {
-      return state.channels.filter((channel) => channel.name === name);
+    getChannel: (state) => (id) => {
+      return state.channels.filter((channel) => channel.id === id);
     },
     getTheme: (state) => state.theme,
     getUser: (state) => state.user,
@@ -53,7 +54,7 @@ const store = new Vuex.Store({
     getRefreshToken: (state) => state.refreshToken,
     getLoggedIn: (state) => state.loggedIn,
     getPosts: (state) => {
-      return state.posts.reverse();
+      return [...state.posts].reverse();
     },
     getChannels: (state) => {
       return state.channels;
@@ -65,6 +66,9 @@ const store = new Vuex.Store({
     },
     setMessages(state, payload) {
       state.messages = payload;
+    },
+    addPost(state, post) {
+      state.posts.push(post);
     },
     setTheme(state, theme) {
       state.theme = theme;
@@ -87,6 +91,12 @@ const store = new Vuex.Store({
     },
     setChannels(state, channels) {
       state.channels = channels;
+    },
+    addChannel(state, channel) {
+      state.channels.push(channel);
+    },
+    removeChannel(state, id) {
+      state.channels = state.channels.filter((channel) => channel.id != id);
     },
   },
   actions: {
@@ -122,12 +132,14 @@ const store = new Vuex.Store({
       else if (userPrefersDark) commit("SET_THEME", "dark");
       else commit("SET_THEME", "light");
     },
-    initStore({ commit }) {
+    initStore() {
       if (localStorage.getItem("user")) {
-        commit("setUser", localStorage.getItem("user"));
-      }
-      if (localStorage.getItem("loggedIn")) {
-        commit("setLoggedIn", true);
+        store.dispatch("handleLogin", {
+          username: localStorage.username,
+          password: localStorage.password,
+        });
+      } else {
+        this.$router.push("/register");
       }
     },
     handleLogin({ commit }, credentials) {
@@ -135,9 +147,9 @@ const store = new Vuex.Store({
         if (response.status === 200) {
           commit("setUser", response.data);
           commit("setLoggedIn", true);
-          localStorage.setItem("user", response.data);
-          localStorage.setItem("loggedIn", true);
-          this.$router.push("/home");
+          localStorage.username = response.data.username;
+          localStorage.password = response.data.password;
+          this.$router.push("/");
         }
       });
     },

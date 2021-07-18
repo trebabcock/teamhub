@@ -41,8 +41,7 @@ export default {
       };
       this.$store.dispatch("sendPost", post);
       document.getElementById("post").value = "";
-      this.$store.dispatch("fetchPosts");
-      //this.$router.go();
+      this.$store.commit("addPost", post);
     },
   },
 };

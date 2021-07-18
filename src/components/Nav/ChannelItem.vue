@@ -18,13 +18,17 @@ export default {
       type: String,
       required: true,
     },
+    id: {
+      type: String,
+      required: true,
+    },
   },
   computed: {
     isActive() {
-      return this.$route.path === "/chat/" + this.name;
+      return this.$route.path === "/chat/" + this.id;
     },
     route() {
-      return "/chat/" + this.name;
+      return "/chat/" + this.id;
     },
   },
 };

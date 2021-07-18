@@ -43,6 +43,5 @@ export default {
       return this.$store.getters.getPosts;
     },
   },
-  watch: {},
 };
 </script>

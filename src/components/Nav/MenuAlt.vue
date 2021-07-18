@@ -1,9 +1,9 @@
 <template>
   <div
-    class="w-64 p-2 flex flex-col max-h-screen bg-gray-700 dark:bg-menu-bg-dark no-scrollbar overflow-y-auto antialiased"
+    class="w-64 py-2 flex flex-col max-h-screen bg-gray-700 dark:bg-menu-bg-dark no-scrollbar overflow-y-auto antialiased"
   >
     <div
-      class="flex-shrink-0 px-8 text-green-300 py-4 flex flex-row items-center justify-between"
+      class="flex-shrink-0 mx-2 px-8 text-green-300 py-4 flex flex-row items-center justify-between"
     >
       <router-link
         to="/"
@@ -14,12 +14,12 @@
     </div>
     <nav
       v-bind:class="{ block: chatOpen, hidden: !chatOpen }"
-      class="md:block px-4 pb-4 flex flex-1"
+      class="md:block pb-4 flex flex-1"
     >
-      <NavItem route="/">Home</NavItem>
-      <NavItem route="/feed">Feed</NavItem>
-      <NavItem route="/spaces">Spaces</NavItem>
-      <NavItem route="/git">Git</NavItem>
+      <NavItemAlt route="/">Home</NavItemAlt>
+      <NavItemAlt route="/feed">Feed</NavItemAlt>
+      <NavItemAlt route="/spaces">Spaces</NavItemAlt>
+      <NavItemAlt route="/git">Git</NavItemAlt>
       <div class="relative flex-grow" x-data="{ chatOpen: false }">
         <button
           v-on:click="toggleChat"
@@ -46,11 +46,11 @@
 </template>
 
 <script>
-import NavItem from "./NavItem";
+import NavItemAlt from "./NavItemAlt";
 import ChannelList from "./ChannelList";
 export default {
   components: {
-    NavItem,
+    NavItemAlt,
     ChannelList,
   },
   data() {

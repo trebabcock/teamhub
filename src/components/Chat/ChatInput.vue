@@ -36,8 +36,13 @@ const moment = require("moment");
 
 export default {
   name: "ChatInput",
+  date() {
+    return {
+      private: false,
+    };
+  },
   props: {
-    channel: {
+    channelID: {
       type: String,
       required: true,
     },
@@ -66,8 +71,9 @@ export default {
         author: mauthor.name,
         time: moment.utc(),
         uuid: uuidv4(),
-        destination: this.channel,
+        destination_id: this.channelID,
         type: messageType,
+        private: this.private,
         content: text,
       };
       this.$store.dispatch("sendMessage", message);

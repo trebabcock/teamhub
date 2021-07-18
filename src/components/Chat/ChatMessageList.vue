@@ -59,7 +59,11 @@ function handleScroll() {
 export default {
   name: "ChatMessageList",
   props: {
-    channel: {
+    channelName: {
+      type: String,
+      required: true,
+    },
+    channelID: {
       type: String,
       required: true,
     },
@@ -74,16 +78,18 @@ export default {
   },
   computed: {
     messages() {
-      return this.$store.getters.getMessages(this.channel);
+      return this.$store.getters.getMessages(this.channelID);
     },
   },
   watch: {
     messages: () => {
-      // Get a reference to the div you want to auto-scroll.
       handleScroll();
     },
   },
-  mounted: function () {
+  updated() {
+    handleScroll();
+  },
+  mounted() {
     handleScroll();
   },
   beforeMount() {

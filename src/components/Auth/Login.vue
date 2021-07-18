@@ -60,7 +60,7 @@ export default {
   },
   mounted() {
     if (this.$store.getters.getLoggedIn) {
-      this.$router.push("/home");
+      this.$router.push("/");
     }
   },
 };

@@ -5,12 +5,12 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
+    path: "/login",
     name: "Login",
     component: () => import("../components/Auth/Login.vue"),
   },
   {
-    path: "/home",
+    path: "/",
     name: "Home",
     component: () => import("../views/Home.vue"),
   },
@@ -33,6 +33,16 @@ const routes = [
     path: "/newchannel",
     name: "New Channel",
     component: () => import("../components/Chat/NewChannel.vue"),
+  },
+  {
+    path: "/spaces",
+    name: "Spaces Home",
+    component: () => import("../views/Spaces.vue"),
+  },
+  {
+    path: "/git",
+    name: "Git Home",
+    component: () => import("../views/Git.vue"),
   },
 ];
 

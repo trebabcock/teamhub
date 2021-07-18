@@ -30,11 +30,10 @@ export default {
   mounted() {
     this.$store.dispatch("fetchMessages");
     if (!this.loggedIn) {
-      this.$router.push("/");
+      this.$router.push("/login");
     }
   },
   beforeMount() {
-    this.showMenu = this.$store.getters.getLoggedIn;
     this.loggedIn = this.$store.getters.getLoggedIn;
   },
   computed: {

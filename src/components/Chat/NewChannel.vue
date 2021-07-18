@@ -52,9 +52,9 @@ export default {
       };
 
       this.$store.dispatch("createChannel", channel);
-      this.$store.dispatch("fetchChannels");
       e.preventDefault();
       //this.$router.go();
+      this.$store.commit("addChannel", channel);
       this.$router.push("/chat/" + this.name);
     },
   },
