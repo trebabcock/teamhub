@@ -31,7 +31,7 @@
           class="cursor-pointer mt-2 w-full rounded-lg text-base outline-none text-green-300 bg-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
         />
       </form>
-      <p class="text-center text-xs text-purple-200 mt-3">
+      <p class="text-center text-xs text-green-200 mt-3">
         Not registered? Sign up
         <router-link to="/register" class="text-green-300">here.</router-link>
       </p>

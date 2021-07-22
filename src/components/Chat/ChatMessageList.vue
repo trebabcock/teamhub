@@ -6,7 +6,7 @@
     <ChatMessage
       v-for="message in messages"
       :key="message.id"
-      v-bind:author="message.author"
+      v-bind:author="message.author_id"
       v-bind:content="message.content"
       v-bind:time="formatTime(message.time)"
       v-bind:messageType="message.type"

@@ -12,7 +12,7 @@
       <div class="flex-1 overflow-hidden text-3xl">
         <div class="mb-2">
           <span
-            class="mr-2 font-bold text-green-300 cursor-pointer hover:underline"
+            class="mr-2 text-green-300 text-sm cursor-pointer hover:underline"
             >{{ author }}</span
           >
           <span class="text-gray-400 text-xs">{{ time }}</span>
@@ -20,18 +20,24 @@
       </div>
     </div>
     <div class="py-4 px-2">
-      <p class="break-words whitespace-pre-wrap">{{ content }}</p>
-      <!--<vue-markdown
+      <!--<p class="break-words whitespace-pre-wrap">{{ content }}</p>-->
+      <vue-markdown
         class="whitespace-pre-wrap"
         :source="content"
         :options="mdOptions"
-      ></vue-markdown>-->
+      ></vue-markdown>
+    </div>
+    <div
+      @click="deletePost"
+      class="max-w-max my-2 h-full px-4 py-2 rounded-lg shadow-md bg-red-500 hover:bg-red-400 cursor-pointer float-right"
+    >
+      <p class="text-white text-sm">Delete Post</p>
     </div>
   </div>
 </template>
 
 <script>
-//import VueMarkdown from "vue-markdown-render";
+import VueMarkdown from "vue-markdown-render";
 export default {
   data() {
     return {
@@ -56,9 +62,19 @@ export default {
       type: String,
       required: true,
     },
+    id: {
+      type: String,
+      required: true,
+    },
   },
   components: {
-    //VueMarkdown,
+    VueMarkdown,
+  },
+  methods: {
+    deletePost() {
+      this.$store.dispatch("deletePost", this.id);
+      this.$store.commit("removePost", this.id);
+    },
   },
 };
 </script>

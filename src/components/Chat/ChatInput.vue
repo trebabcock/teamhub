@@ -68,7 +68,7 @@ export default {
       let mauthor = this.$store.getters.getUser;
 
       var message = {
-        author: mauthor.name,
+        author_id: mauthor.name,
         time: moment.utc(),
         uuid: uuidv4(),
         destination_id: this.channelID,

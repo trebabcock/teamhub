@@ -48,14 +48,17 @@ export default {
       var channel = {
         name: this.name,
         description: this.description,
-        id: uuidv4(),
+        uuid: uuidv4(),
       };
 
       this.$store.dispatch("createChannel", channel);
       e.preventDefault();
       //this.$router.go();
       this.$store.commit("addChannel", channel);
-      this.$router.push("/chat/" + this.name);
+      let name = document.getElementById("name");
+      let desc = document.getElementById("description");
+      name.value = "";
+      desc.value = "";
     },
   },
 };

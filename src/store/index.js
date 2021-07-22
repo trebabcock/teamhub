@@ -46,7 +46,7 @@ const store = new Vuex.Store({
       );
     },
     getChannel: (state) => (id) => {
-      return state.channels.filter((channel) => channel.id === id);
+      return state.channels.filter((channel) => channel.uuid === id);
     },
     getTheme: (state) => state.theme,
     getUser: (state) => state.user,
@@ -96,7 +96,10 @@ const store = new Vuex.Store({
       state.channels.push(channel);
     },
     removeChannel(state, id) {
-      state.channels = state.channels.filter((channel) => channel.id != id);
+      state.channels = state.channels.filter((channel) => channel.uuid != id);
+    },
+    removePost(state, id) {
+      state.posts = state.posts.filter((posts) => posts.id != id);
     },
   },
   actions: {
@@ -169,10 +172,15 @@ const store = new Vuex.Store({
       });
     },
     deleteChannel(context, channel) {
-      axios.delete("/chat/channels/" + channel.id).then((response) => {
+      axios.delete("/chat/channels/" + channel.uuid).then((response) => {
         console.log(response);
       });
     },
+    deletePost(context, id) {
+      axios.delete("/posts/" + id).then((response) => {
+        console.log(response);
+      });
+    }
   },
   modules: {},
 });

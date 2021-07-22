@@ -13,7 +13,7 @@
       </div>
       <div
         @click="deleteChannel"
-        class="max-w-max my-auto px-4 py-2 rounded-lg shadow-md bg-red-500 hover:bg-red-400 cursor-pointer float-right"
+        class="max-w-max my-2 h-full px-4 py-2 rounded-lg shadow-md bg-red-500 hover:bg-red-400 cursor-pointer float-right"
       >
         <p class="text-white text-sm">Delete Channel</p>
       </div>
@@ -31,7 +31,7 @@ export default {
   },
   computed: {
     channel() {
-      return this.$store.getters.getChannel(this.id);
+      return this.$store.getters.getChannel(this.id)[0];
     },
   },
   methods: {
@@ -39,10 +39,10 @@ export default {
       let channel = {
         channel: this.channel,
         description: this.description,
-        id: this.id,
+        uuid: this.id,
       };
       this.$store.dispatch("deleteChannel", channel);
-      this.$store.commit("removeChannel", channel.id);
+      this.$store.commit("removeChannel", channel.uuid);
       this.$router.push("/");
     },
   },

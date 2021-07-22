@@ -12,6 +12,7 @@
       v-bind:author="post.author"
       v-bind:time="formatTime(post.time)"
       v-bind:content="post.content"
+      v-bind:id="post.id"
     />
   </div>
 </template>

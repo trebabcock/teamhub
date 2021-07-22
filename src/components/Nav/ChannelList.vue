@@ -13,9 +13,9 @@
       <NavItem route="/newchannel">New Channel</NavItem>
       <ChannelItem
         v-for="channel in channels"
-        :key="channel.id"
+        :key="channel.uuid"
         v-bind:name="channel.name"
-        v-bind:id="channel.id"
+        v-bind:id="channel.uuid"
         >{{ channel.name }}</ChannelItem
       >
     </div>
