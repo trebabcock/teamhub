@@ -1,5 +1,5 @@
 <template class="overflow-y-hidden">
-  <div class="font-sans antialiased h-screen flex overflow-y-hidden">
+  <div class="font-sans antialiased h-screen w-full flex overflow-y-hidden">
     <div
       class="flex-1 flex flex-col bg-gray-600 dark:bg-channel-bg-dark dark:text-channel-text-dark overflow-hidden"
     >
@@ -26,11 +26,8 @@ export default {
     ChatTopBar,
   },
   computed: {
-    asdf() {
-      return this.$route.params.channel;
-    },
     channel() {
-      return this.$store.getters.getChannel(this.asdf)[0];
+      return this.$store.getters.getCurrentChannel;
     },
   },
 };

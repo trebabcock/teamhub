@@ -17,7 +17,12 @@ const routes = [
   {
     path: "/chat/:channel",
     name: "Chat",
-    component: () => import("../components/Chat/Channel.vue"),
+    component: () => import("../components/Nav/Chat.vue"),
+  },
+  {
+    path: "/chat",
+    name: "MetaChat",
+    component: () => import("../components/Nav/Chat.vue"),
   },
   {
     path: "/register",

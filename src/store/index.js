@@ -38,6 +38,7 @@ const store = new Vuex.Store({
     users: [],
     channels: [],
     posts: [],
+    currentChannel: {}
   },
   getters: {
     getMessages: (state) => (destination) => {
@@ -59,6 +60,9 @@ const store = new Vuex.Store({
     getChannels: (state) => {
       return state.channels;
     },
+    getCurrentChannel: (state) => {
+      return state.currentChannel;
+    }
   },
   mutations: {
     addMessage(state, message) {
@@ -94,6 +98,9 @@ const store = new Vuex.Store({
     },
     addChannel(state, channel) {
       state.channels.push(channel);
+    },
+    setCurrentChannel(state, channel) {
+      state.currentChannel = channel;
     },
     removeChannel(state, id) {
       state.channels = state.channels.filter((channel) => channel.uuid != id);

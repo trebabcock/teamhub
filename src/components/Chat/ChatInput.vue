@@ -82,7 +82,7 @@ export default {
     selectFile() {
       var inp = document.getElementById("fileInput");
       inp.click();
-      this.uploadFile(inp.value);
+      this.uploadFile(inp.files[0]);
     },
   },
   computed: {

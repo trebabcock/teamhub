@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div v-if="loggedIn" class="h-screen flex">
-      <Menu />
+      <MainNav />
       <div class="flex-1 flex overflow-hidden">
         <div class="antialiased flex-1 overflow-y-auto">
           <router-view />
@@ -20,13 +20,14 @@
   font-family: "Open Sans", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #515d66;
 }
 </style>
 
 <script>
-import Menu from "./components/Nav/Menu";
+import MainNav from "./components/Nav/MainNav.vue";
 export default {
-  components: { Menu },
+  components: { MainNav },
   mounted() {
     this.$store.dispatch("fetchMessages");
     if (!this.loggedIn) {

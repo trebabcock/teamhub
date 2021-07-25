@@ -1,14 +1,14 @@
 <template>
-  <router-link
-    class="block px-4 py-2 mt-2 text-sm font-semibold rounded-lg truncate hover:no-underline"
+  <div
+    class="block px-4 py-2 mt-2 text-sm font-semibold hover:text-green-300 rounded-lg cursor-pointer truncate hover:no-underline"
     v-bind:class="{
-      'bg-gray-500 text-green-50': isActive,
-      'bg-transparent text-green-300': !isActive,
+      'text-green-300': isActive,
+      'text-gray-300': !isActive,
     }"
-    :to="this.route"
+    @click="setChannel"
   >
     <slot></slot>
-  </router-link>
+  </div>
 </template>
 
 <script>
@@ -23,12 +23,20 @@ export default {
       required: true,
     },
   },
-  computed: {
-    isActive() {
-      return this.$route.path === "/chat/" + this.id;
+  methods: {
+    setChannel() {
+      this.$store.commit("setCurrentChannel", this.channel);
     },
-    route() {
-      return "/chat/" + this.id;
+  },
+  computed: {
+    channel() {
+      return this.$store.getters.getChannel(this.id)[0];
+    },
+    currentChannel() {
+      return this.$store.getters.getCurrentChannel;
+    },
+    isActive() {
+      return this.currentChannel.uuid == this.id;
     },
   },
 };
