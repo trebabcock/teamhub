@@ -2,12 +2,12 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 const axios = require("axios");
-axios.defaults.baseURL = "http://localhost:2814/api/v1";
+axios.defaults.baseURL = "http://fglteam.com/api/v1";
 
 Vue.use(Vuex);
 
 //let user = this.$store.getters.getUser;
-let socket = new WebSocket("ws://localhost:2814/api/v1/chat?id=" + "asdf");
+let socket = new WebSocket("ws://fglteam.com/api/v1/chat");
 console.log("Attempting Connection...");
 
 socket.onopen = () => {
@@ -16,7 +16,7 @@ socket.onopen = () => {
 
 socket.onclose = (event) => {
   console.log("Socket Closed Connection: ", event);
-  socket = new WebSocket("ws://localhost:2814/api/v1/chat?id=" + "asdf");
+  socket = new WebSocket("ws://fglteam.com/api/v1/chat");
 };
 
 socket.onerror = (error) => {
