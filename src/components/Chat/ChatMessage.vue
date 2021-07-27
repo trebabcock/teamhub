@@ -14,7 +14,7 @@
         >
         <span class="text-gray-400 text-xs">{{ time }}</span>
       </div>
-      <p v-if="isText" class="leading-normal">
+      <p v-if="isText" class="leading-normal whitespace-pre-wrap">
         {{ content }}
       </p>
       <img

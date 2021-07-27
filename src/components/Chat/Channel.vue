@@ -10,7 +10,10 @@
         v-bind:channelName="channel.name"
         v-bind:channelID="channel.uuid"
       />
-      <ChatInput v-bind:channelID="channel.uuid" />
+      <ChatInput
+        v-bind:channelName="channel.name"
+        v-bind:channelID="channel.uuid"
+      />
     </div>
   </div>
 </template>

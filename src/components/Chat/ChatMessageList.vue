@@ -75,6 +75,12 @@ export default {
     formatTime(time) {
       return moment(time).calendar();
     },
+    handleClick(event, channel) {
+      this.$refs.vueSimpleContextMenu.showMenu(event, channel);
+    },
+    optionClicked(event) {
+      window.alert(JSON.stringify(event));
+    },
   },
   computed: {
     messages() {

@@ -13,6 +13,9 @@ import {
   faHdd,
   faHome,
   faHashtag,
+  faKiss,
+  faPlus,
+  faPlusCircle,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
@@ -26,7 +29,10 @@ library.add(
   faHdd,
   faHome,
   faGithub,
-  faHashtag
+  faHashtag,
+  faKiss,
+  faPlus,
+  faPlusCircle
 );
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
