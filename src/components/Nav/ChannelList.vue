@@ -1,6 +1,6 @@
 <template>
   <div class="px-2 py-2 bg-transparent rounded-md dark:bg-gray-800 mb-4">
-    <NavItem route="/newchannel">New Channel</NavItem>
+    <NavItem class="bg-gray-800" route="/newchannel">New Channel</NavItem>
     <ChannelItem
       v-for="channel in channels"
       :key="channel.uuid"

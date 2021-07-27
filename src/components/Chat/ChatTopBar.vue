@@ -1,9 +1,7 @@
 <template>
-  <div
-    class="border-b border-gray-800 bg-gray-800 flex px-6 py-2 items-center flex-none"
-  >
-    <div class="w-full mx-auto">
-      <div class="float-left flex flex-col">
+  <div class="border-b border-gray-800 bg-gray-800 flex items-center flex-none">
+    <div class="w-full mx-auto flex flex-row">
+      <div class="w-5/6 px-4 py-2 flex flex-col">
         <h3 class="text-green-200 mb-1 font-extrabold">
           {{ channel.name }}
         </h3>
@@ -13,14 +11,14 @@
           </p>
         </div>
       </div>
-      <!--<div class="bg-gray-900 h-full float-right">
+      <div class="pr-4 py-2 w-1/6 my-auto">
         <div
           @click="deleteChannel"
-          class="max-w-max my-2 h-full px-4 py-2 rounded-lg shadow-md bg-red-500 hover:bg-red-400 cursor-pointer float-right"
+          class="max-w-max truncate my-2 h-full px-4 py-2 rounded-lg shadow-md bg-red-500 hover:bg-red-400 cursor-pointer"
         >
-          <p class="text-white text-sm">Delete Channel</p>
+          <p class="text-white text-sm truncate">Delete Channel</p>
         </div>
-      </div>-->
+      </div>
     </div>
   </div>
 </template>

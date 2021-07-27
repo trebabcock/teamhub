@@ -1,5 +1,5 @@
 <template class="overflow-y-hidden">
-  <div class="font-sans antialiased h-screen w-full flex overflow-y-hidden">
+  <div class="font-sans antialiased h-screen flex overflow-y-hidden">
     <div
       class="flex-1 flex flex-col bg-gray-600 dark:bg-channel-bg-dark dark:text-channel-text-dark overflow-hidden"
     >

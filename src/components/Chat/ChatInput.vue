@@ -49,7 +49,8 @@ export default {
   },
   methods: {
     uploadFile(path) {
-      document.getElementById("input_box").value = path;
+      //document.getElementById("input_box").value = path;
+      console.log(path);
     },
     submitMessage() {
       let text = document.getElementById("input_box").value;

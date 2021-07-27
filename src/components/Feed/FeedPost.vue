@@ -1,6 +1,6 @@
 <template>
   <div
-    class="my-2 overflow-x-hidden py-3 flex flex-col text-green-50 rounded-md px-2 bg-gray-700 hover:shadow-md bg-transparent dark:border-gray-800 items-start mb-1 text-sm"
+    class="my-2 overflow-x-hidden pt-3 flex flex-col text-green-50 rounded-md px-2 bg-gray-700 hover:shadow-md bg-transparent dark:border-gray-800 items-start mb-1 text-sm"
   >
     <div
       class="flex flex-row items-center border-b pb-2 border-gray-800 w-full"
@@ -19,7 +19,7 @@
         </div>
       </div>
     </div>
-    <div class="py-4 px-2">
+    <div class="pt-4 px-2">
       <!--<p class="break-words whitespace-pre-wrap">{{ content }}</p>-->
       <vue-markdown
         class="whitespace-pre-wrap"

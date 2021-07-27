@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-64 p-2 max-h-screen bg-gray-700 no-scrollbar overflow-y-auto antialiased"
+    class="p-2 max-h-screen bg-gray-700 no-scrollbar overflow-y-auto antialiased"
   >
     <ChannelList />
   </div>

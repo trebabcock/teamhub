@@ -30,6 +30,7 @@ export default {
   components: { MainNav },
   mounted() {
     this.$store.dispatch("fetchMessages");
+    this.$store.dispatch("fetchUsers");
     if (!this.loggedIn) {
       this.$router.push("/login");
     }

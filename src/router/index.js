@@ -49,6 +49,11 @@ const routes = [
     name: "Git Home",
     component: () => import("../views/Git.vue"),
   },
+  {
+    path: "/settings",
+    name: "Settings",
+    component: () => import("../views/Settings.vue"),
+  },
 ];
 
 const router = new VueRouter({

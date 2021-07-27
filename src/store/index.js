@@ -38,7 +38,7 @@ const store = new Vuex.Store({
     users: [],
     channels: [],
     posts: [],
-    currentChannel: {}
+    currentChannel: {},
   },
   getters: {
     getMessages: (state) => (destination) => {
@@ -62,7 +62,10 @@ const store = new Vuex.Store({
     },
     getCurrentChannel: (state) => {
       return state.currentChannel;
-    }
+    },
+    getUsers: (state) => {
+      return state.users;
+    },
   },
   mutations: {
     addMessage(state, message) {
@@ -80,6 +83,9 @@ const store = new Vuex.Store({
     },
     setUser(state, user) {
       state.user = user;
+    },
+    setUsers(state, users) {
+      state.users = users;
     },
     setLoggedIn(state, value) {
       state.loggedIn = value;
@@ -108,14 +114,62 @@ const store = new Vuex.Store({
     removePost(state, id) {
       state.posts = state.posts.filter((posts) => posts.id != id);
     },
+    editMessage(state, id, newMessage) {
+      let msg = [...state.messages].filter((message) => message.id === id)[0];
+      let index = state.messages.indexOf(msg);
+      state.messages[index] = newMessage;
+    },
+    editPost(state, id, newPost) {
+      let pst = [...state.posts].filter((post) => post.id === id)[0];
+      let index = state.posts.indexOf(pst);
+      state.posts[index] = newPost;
+    },
+    deleteMessage(state, id) {
+      state.messages = state.messages.filter((message) => message.id != id);
+    },
+    deletePost(state, id) {
+      state.posts = state.posts.filter((post) => post.id != id);
+    },
   },
   actions: {
     sendMessage(context, payload) {
-      try {
-        socket.send(JSON.stringify(payload));
-      } catch (error) {
-        console.error(error);
-      }
+      /*let packet = {
+        sender_id: store.getters.getUser.uuid,
+        private: payload.private,
+        type: "action",
+        data: {
+          action: "new_message",
+          message: payload,
+        },
+      };*/
+
+      socket.send(JSON.stringify(payload));
+    },
+    editMessage(context, payload) {
+      let packet = {
+        sender_id: store.getters.getUser.uuid,
+        private: payload.private,
+        type: "action",
+        data: {
+          action: "edit_message",
+          message: payload,
+        },
+      };
+
+      socket.send(JSON.stringify(packet));
+    },
+    deleteMessage(context, payload) {
+      let packet = {
+        sender_id: store.getters.getUser.uuid,
+        private: payload.private,
+        type: "action",
+        data: {
+          action: "delete_message",
+          message: payload,
+        },
+      };
+
+      socket.send(JSON.stringify(packet));
     },
     fetchMessages({ commit }) {
       axios.get("/chat/messages").then((response) => {
@@ -130,6 +184,11 @@ const store = new Vuex.Store({
     fetchChannels({ commit }) {
       axios.get("/chat/channels").then((response) => {
         commit("setChannels", response.data);
+      });
+    },
+    fetchUsers({ commit }) {
+      axios.get("/users").then((response) => {
+        commit("setUsers", response.data);
       });
     },
     initTheme({ commit }) {
@@ -159,6 +218,7 @@ const store = new Vuex.Store({
           commit("setLoggedIn", true);
           localStorage.username = response.data.username;
           localStorage.password = response.data.password;
+
           this.$router.push("/");
         }
       });
@@ -172,22 +232,70 @@ const store = new Vuex.Store({
       axios.post("/posts/create", post).then((response) => {
         console.log(response);
       });
+
+      let packet = {
+        sender_id: store.getters.getUser.uuid,
+        private: false,
+        type: "action",
+        data: {
+          action: "create_post",
+          post: post,
+        },
+      };
+
+      socket.send(JSON.stringify(packet));
     },
     createChannel(context, channel) {
       axios.post("/chat/channels/new", channel).then((response) => {
         console.log(response);
       });
+
+      let packet = {
+        sender_id: store.getters.getUser.uuid,
+        private: false,
+        type: "action",
+        data: {
+          action: "create_channel",
+          channel: channel,
+        },
+      };
+
+      socket.send(JSON.stringify(packet));
     },
     deleteChannel(context, channel) {
       axios.delete("/chat/channels/" + channel.uuid).then((response) => {
         console.log(response);
       });
+
+      let packet = {
+        sender_id: store.getters.getUser.uuid,
+        private: false,
+        type: "action",
+        data: {
+          action: "delete_channel",
+          channel: channel,
+        },
+      };
+
+      socket.send(JSON.stringify(packet));
     },
     deletePost(context, id) {
       axios.delete("/posts/" + id).then((response) => {
         console.log(response);
       });
-    }
+
+      let packet = {
+        sender_id: store.getters.getUser.uuid,
+        private: false,
+        type: "action",
+        data: {
+          action: "delete_post",
+          post: id,
+        },
+      };
+
+      socket.send(JSON.stringify(packet));
+    },
   },
   modules: {},
 });
