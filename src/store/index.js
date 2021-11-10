@@ -2,12 +2,14 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 const axios = require("axios");
-axios.defaults.baseURL = "http://fglteam.com/api/v1";
+//axios.defaults.baseURL = "http://fglteam.com/api/v1";
+axios.defaults.baseURL = "http://localhost:2814";
 
 Vue.use(Vuex);
 
 //let user = this.$store.getters.getUser;
-let socket = new WebSocket("ws://fglteam.com/api/v1/chat");
+//let socket = new WebSocket("ws://fglteam.com/api/v1/chat");
+let socket = new WebSocket("ws://localhost:2814/chat");
 console.log("Attempting Connection...");
 
 socket.onopen = () => {
@@ -16,7 +18,8 @@ socket.onopen = () => {
 
 socket.onclose = (event) => {
   console.log("Socket Closed Connection: ", event);
-  socket = new WebSocket("ws://fglteam.com/api/v1/chat");
+  //socket = new WebSocket("ws://fglteam.com/api/v1/chat");
+  socket = new WebSocket("ws://localhost:2814/chat");
 };
 
 socket.onerror = (error) => {
@@ -172,24 +175,40 @@ const store = new Vuex.Store({
       socket.send(JSON.stringify(packet));
     },
     fetchMessages({ commit }) {
-      axios.get("/chat/messages").then((response) => {
-        commit("setMessages", response.data);
-      });
+      axios
+        .get("/api/v1/chat/messages", {
+          headers: { Authorization: "Bearer " + store.getters.getAccessToken },
+        })
+        .then((response) => {
+          commit("setMessages", response.data);
+        });
     },
     fetchPosts({ commit }) {
-      axios.get("/posts").then((response) => {
-        commit("setPosts", response.data);
-      });
+      axios
+        .get("/api/v1/posts", {
+          headers: { Authorization: "Bearer " + store.getters.getAccessToken },
+        })
+        .then((response) => {
+          commit("setPosts", response.data);
+        });
     },
     fetchChannels({ commit }) {
-      axios.get("/chat/channels").then((response) => {
-        commit("setChannels", response.data);
-      });
+      axios
+        .get("/api/v1/chat/channels", {
+          headers: { Authorization: "Bearer " + store.getters.getAccessToken },
+        })
+        .then((response) => {
+          commit("setChannels", response.data);
+        });
     },
     fetchUsers({ commit }) {
-      axios.get("/users").then((response) => {
-        commit("setUsers", response.data);
-      });
+      axios
+        .get("/api/v1/users", {
+          headers: { Authorization: "Bearer " + store.getters.getAccessToken },
+        })
+        .then((response) => {
+          commit("setUsers", response.data);
+        });
     },
     initTheme({ commit }) {
       const cachedTheme = localStorage.theme ? localStorage.theme : false;
@@ -215,6 +234,7 @@ const store = new Vuex.Store({
       axios.post("/auth/login", credentials).then((response) => {
         if (response.status === 200) {
           commit("setUser", response.data);
+          commit("setAccessToken", response.data.access_token);
           commit("setLoggedIn", true);
           localStorage.username = response.data.username;
           localStorage.password = response.data.password;
@@ -229,9 +249,13 @@ const store = new Vuex.Store({
       });
     },
     sendPost(context, post) {
-      axios.post("/posts/create", post).then((response) => {
-        console.log(response);
-      });
+      axios
+        .post("/api/v1/posts/create", post, {
+          headers: { Authorization: "Bearer " + store.getters.getAccessToken },
+        })
+        .then((response) => {
+          console.log(response);
+        });
 
       let packet = {
         sender_id: store.getters.getUser.uuid,
@@ -246,9 +270,13 @@ const store = new Vuex.Store({
       socket.send(JSON.stringify(packet));
     },
     createChannel(context, channel) {
-      axios.post("/chat/channels/new", channel).then((response) => {
-        console.log(response);
-      });
+      axios
+        .post("/api/v1/chat/channels/new", channel, {
+          headers: { Authorization: "Bearer " + store.getters.getAccessToken },
+        })
+        .then((response) => {
+          console.log(response);
+        });
 
       let packet = {
         sender_id: store.getters.getUser.uuid,
@@ -263,9 +291,13 @@ const store = new Vuex.Store({
       socket.send(JSON.stringify(packet));
     },
     deleteChannel(context, channel) {
-      axios.delete("/chat/channels/" + channel.uuid).then((response) => {
-        console.log(response);
-      });
+      axios
+        .delete("/api/v1/chat/channels/" + channel.uuid, {
+          headers: { Authorization: "Bearer " + store.getters.getAccessToken },
+        })
+        .then((response) => {
+          console.log(response);
+        });
 
       let packet = {
         sender_id: store.getters.getUser.uuid,
@@ -280,9 +312,13 @@ const store = new Vuex.Store({
       socket.send(JSON.stringify(packet));
     },
     deletePost(context, id) {
-      axios.delete("/posts/" + id).then((response) => {
-        console.log(response);
-      });
+      axios
+        .delete("/api/v1/posts/" + id, {
+          headers: { Authorization: "Bearer " + store.getters.getAccessToken },
+        })
+        .then((response) => {
+          console.log(response);
+        });
 
       let packet = {
         sender_id: store.getters.getUser.uuid,
